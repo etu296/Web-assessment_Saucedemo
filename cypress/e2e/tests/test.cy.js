@@ -12,25 +12,33 @@ import CheckoutPage from '../../support/pageobjects/checkout_page';
 const checkoutPage = new CheckoutPage();
 import LogoutPage from '../../support/pageobjects/logut_page';
 const logoutPage = new LogoutPage();
-
+const dayjs = require("dayjs");
 describe("login page automate",()=>{
 beforeEach(() => {
     loginPage.visit();
     loginPage.enterUsername("standard_user");
     loginPage.enterPassword("secret_sauce");
     loginPage.submit();
-    cy.wait(2000); // optional, better to wait for an element instead
+    cy.wait(2000);
+    loginPage.verifyLoginSuccess();
   });
 
    it("sort by name",()=>{
+      const timestamp = dayjs().format("YYYY_MM_DD_HH_mm_ss");
       sortByName.selectAnyOption("Name (Z to A)");
+      sortByName.verifySortByName();
+      cy.screenshot(`run_${timestamp}/sort_by_name`);
       cy.wait(2000);
    })
    it("sort by price",()=>{
+      const timestamp = dayjs().format("YYYY_MM_DD_HH_mm_ss");
       sortByPrice.selectAnyOption("Price (high to low)");
+      sortByPrice.verifySortByPrice();
+      cy.screenshot(`run_${timestamp}/sort_by_price`);
       cy.wait(2000);
    })
    it("add 3 product to cart and remove 2nd item from the cart details then checkout for complete the order then logout",()=>{
+      const timestamp = dayjs().format("YYYY_MM_DD_HH_mm_ss");
       addToCart.addProduct();
       removeProductFromCart.cartDetails();
       removeProductFromCart.removeitem();
@@ -39,8 +47,10 @@ beforeEach(() => {
       checkoutPage.submitCheckout();
       checkoutPage.finishCheckout();
       checkoutPage.assertCheckoutSuccess();
+      cy.screenshot(`run_${timestamp}/finish_checkout`);
       cy.wait(2000);
       logoutPage.logout();
+      logoutPage.verifyLogoutSuccess();
    })
 
    

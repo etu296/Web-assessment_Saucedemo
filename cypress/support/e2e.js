@@ -15,3 +15,13 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import 'cypress-mochawesome-reporter/register';
+
+// optional: take screenshot on failure (Cypress already does this by default when run headless)
+afterEach(function () {
+  // use function() to access `this.currentTest`
+  if (this.currentTest && this.currentTest.state === 'failed') {
+    const testName = this.currentTest.title.replace(/[:\/]/g, ''); 
+    cy.screenshot(testName, { capture: 'runner' });
+  }
+});

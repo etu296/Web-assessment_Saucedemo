@@ -21,8 +21,7 @@ class LoginPage {
         this.submit();
     }
   verifyLoginSuccess() {
-    cy.url().should('include', '/dashboard');
-    cy.get('.welcome-message').should('contain', 'Welcome back');
+    cy.get('.app_logo').should('contain', 'Swag Labs');
   }
 
   verifyLoginFailure() {
