@@ -44,6 +44,21 @@ This project automates end-to-end user scenarios for the Sauce Demo application 
    - Logs out
 
 ---
+## 📊 Generating Test Report with Mochawesome
+
+### Steps:
+1. **Install reporter dependencies**
+   ```bash
+   npm install --save-dev cypress-mochawesome-reporter mochawesome mochawesome-merge mochawesome-report-generator
+2. **Update your cypress.config.js** file
+3. **Register reporter in cypress/support/e2e.js**
+4. **Add scripts in package.json**
+5.**Run tests and generate report**
+   ```bash
+   npm run test:report
+6. **Open cypress/reports/html/report.html in a browse**
+
+
 
 ## ✍️ Author
 
